@@ -12,3 +12,33 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  password String
+  name String
+  role Role
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  records Record[]
+}
+
+model Record {
+  id String @id @default(cuid())
+  createdById String
+  fileName String
+  description String?
+  category String?
+  createdBy User @relation(fields: [createdById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  SENDER
+  RECEIVER
+}
