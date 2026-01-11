@@ -1,11 +1,11 @@
 "use server";
 
-import { SignUpFormSchema } from "@/lib/zodSchemas";
+import { SignInFormSchema, SignUpFormSchema } from "@/lib/zodSchemas";
 import z from "zod";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 
-export default async function SignUp(values: z.infer<typeof SignUpFormSchema>) {
+export async function SignUp(values: z.infer<typeof SignUpFormSchema>) {
   try {
     const validation = SignUpFormSchema.safeParse(values);
 

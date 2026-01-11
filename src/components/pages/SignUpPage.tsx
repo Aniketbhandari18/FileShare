@@ -23,7 +23,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import Link from "next/link";
-import SignUp from "@/actions/authActions";
+import { SignUp } from "@/actions/authActions";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
