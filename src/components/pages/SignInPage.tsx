@@ -22,8 +22,16 @@ import {
   CardTitle,
 } from "../ui/card";
 import Link from "next/link";
+import { useTransition } from "react";
+import { SignIn } from "@/actions/authActions";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 const SignInPage = () => {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof SignInFormSchema>>({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
@@ -33,8 +41,16 @@ const SignInPage = () => {
   });
 
   const handleFormSubmit = (values: z.infer<typeof SignInFormSchema>) => {
-    console.log("form submitted");
-    console.log(values);
+    startTransition(async () => {
+      const result = await SignIn(values);
+
+      if (result.success) {
+        toast.success("Signed in successfully");
+        router.push("/dashboard");
+      } else {
+        toast.error(result.error || "Something went wrong");
+      }
+    });
   };
 
   return (
@@ -82,8 +98,19 @@ const SignInPage = () => {
                 )}
               />
 
-              <Button type="submit" className="w-full mb-2">
-                Sign In
+              <Button
+                disabled={isPending}
+                type="submit"
+                className="w-full mb-2"
+              >
+                {isPending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
               </Button>
 
               <div className="flex justify-center gap-1 text-sm">
