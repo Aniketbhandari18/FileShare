@@ -12,3 +12,8 @@ export const SignUpFormSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
   role: z.enum(Role, "Role is required"),
 });
+
+export const SignInFormSchema = z.object({
+  email: z.email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
