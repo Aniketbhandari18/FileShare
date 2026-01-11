@@ -14,7 +14,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Inbox, Send } from "lucide-react";
+import { Inbox, Loader2, Send } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -23,8 +23,15 @@ import {
   CardTitle,
 } from "../ui/card";
 import Link from "next/link";
+import SignUp from "@/actions/authActions";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 
 const SignUpPage = () => {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof SignUpFormSchema>>({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
@@ -36,8 +43,19 @@ const SignUpPage = () => {
   });
 
   const handleFormSubmit = (values: z.infer<typeof SignUpFormSchema>) => {
-    console.log("Form submitted");
-    console.log(values);
+    startTransition(async () => {
+      console.log("Form submitted");
+      console.log(values);
+
+      const result = await SignUp(values);
+
+      if (result.success) {
+        toast.success("Account created successfully! Please sign in.");
+        router.push("/sign-in");
+      } else {
+        toast.error(result.error || "Something went wrong");
+      }
+    });
   };
 
   return (
@@ -126,6 +144,7 @@ const SignUpPage = () => {
                       </button>
                       <button
                         type="button"
+                        disabled={isPending}
                         onClick={() => {
                           field.onChange("RECEIVER");
                         }}
@@ -146,8 +165,19 @@ const SignUpPage = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full mb-2">
-                Sign Up
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="w-full mb-2"
+              >
+                {isPending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Signing up...
+                  </>
+                ) : (
+                  "Sign Up"
+                )}
               </Button>
 
               <div className="flex justify-center gap-1 text-sm">
