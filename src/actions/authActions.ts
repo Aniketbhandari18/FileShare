@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 import { generateJwtToken } from "@/lib/generateJwtTokens";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function SignUp(values: z.infer<typeof SignUpFormSchema>) {
   try {
@@ -121,4 +122,13 @@ export async function SignIn(values: z.infer<typeof SignInFormSchema>) {
       error: error instanceof Error ? error.message : "Something went wrong",
     };
   }
+}
+
+export async function SignOut() {
+  const cookieStore = await cookies();
+
+  cookieStore.delete("accessToken");
+  cookieStore.delete("refreshToken");
+
+  redirect("/sign-in");
 }
