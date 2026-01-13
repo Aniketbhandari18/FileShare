@@ -1,9 +1,10 @@
+import { MyJwtPayload } from "@/types";
 import jwt from "jsonwebtoken";
 
 type ExpiresInType = `${number}${"ms" | "s" | "m" | "h" | "d" | "w"}`;
 
 export function generateJwtToken(
-  payload: object,
+  payload: MyJwtPayload,
   secret: string,
   expiresIn: string
 ) {
