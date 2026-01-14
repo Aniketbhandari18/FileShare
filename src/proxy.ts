@@ -41,13 +41,21 @@ export async function proxy(req: NextRequest) {
   if (!decodedAccessToken?.userId && decodedRefreshToken?.userId) {
     // generate new tokens
     const newAccessToken = generateJwtToken(
-      { userId: decodedRefreshToken.userId, email: decodedRefreshToken.email },
+      {
+        userId: decodedRefreshToken.userId,
+        email: decodedRefreshToken.email,
+        role: decodedRefreshToken.role,
+      },
       process.env.ACCESS_TOKEN_SECRET!,
       process.env.ACCESS_TOKEN_EXPIRY!
     );
 
     const newRefreshToken = generateJwtToken(
-      { userId: decodedRefreshToken.userId, email: decodedRefreshToken.email },
+      {
+        userId: decodedRefreshToken.userId,
+        email: decodedRefreshToken.email,
+        role: decodedRefreshToken.role,
+      },
       process.env.REFRESH_TOKEN_SECRET!,
       process.env.REFRESH_TOKEN_EXPIRY!
     );

@@ -82,13 +82,13 @@ export async function SignIn(values: z.infer<typeof SignInFormSchema>) {
 
     // generate access and refresh token
     const accessToken = generateJwtToken(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, role: user.role },
       process.env.ACCESS_TOKEN_SECRET!,
       process.env.ACCESS_TOKEN_EXPIRY!
     );
 
     const refreshToken = generateJwtToken(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, role: user.role },
       process.env.REFRESH_TOKEN_SECRET!,
       process.env.REFRESH_TOKEN_EXPIRY!
     );
