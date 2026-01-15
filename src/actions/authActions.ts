@@ -130,5 +130,5 @@ export async function SignOut() {
   cookieStore.delete("accessToken");
   cookieStore.delete("refreshToken");
 
-  redirect("/sign-in");
+  redirect("/");
 }
