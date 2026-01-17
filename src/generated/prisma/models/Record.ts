@@ -29,7 +29,7 @@ export type RecordMinAggregateOutputType = {
   createdById: string | null
   fileName: string | null
   description: string | null
-  category: string | null
+  category: $Enums.FileCategory | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -39,7 +39,7 @@ export type RecordMaxAggregateOutputType = {
   createdById: string | null
   fileName: string | null
   description: string | null
-  category: string | null
+  category: $Enums.FileCategory | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -164,7 +164,7 @@ export type RecordGroupByOutputType = {
   createdById: string
   fileName: string
   description: string | null
-  category: string | null
+  category: $Enums.FileCategory
   createdAt: Date
   updatedAt: Date
   _count: RecordCountAggregateOutputType | null
@@ -195,7 +195,7 @@ export type RecordWhereInput = {
   createdById?: Prisma.StringFilter<"Record"> | string
   fileName?: Prisma.StringFilter<"Record"> | string
   description?: Prisma.StringNullableFilter<"Record"> | string | null
-  category?: Prisma.StringNullableFilter<"Record"> | string | null
+  category?: Prisma.EnumFileCategoryFilter<"Record"> | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFilter<"Record"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Record"> | Date | string
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -206,7 +206,7 @@ export type RecordOrderByWithRelationInput = {
   createdById?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdBy?: Prisma.UserOrderByWithRelationInput
@@ -220,7 +220,7 @@ export type RecordWhereUniqueInput = Prisma.AtLeast<{
   createdById?: Prisma.StringFilter<"Record"> | string
   fileName?: Prisma.StringFilter<"Record"> | string
   description?: Prisma.StringNullableFilter<"Record"> | string | null
-  category?: Prisma.StringNullableFilter<"Record"> | string | null
+  category?: Prisma.EnumFileCategoryFilter<"Record"> | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFilter<"Record"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Record"> | Date | string
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -231,7 +231,7 @@ export type RecordOrderByWithAggregationInput = {
   createdById?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.RecordCountOrderByAggregateInput
@@ -247,7 +247,7 @@ export type RecordScalarWhereWithAggregatesInput = {
   createdById?: Prisma.StringWithAggregatesFilter<"Record"> | string
   fileName?: Prisma.StringWithAggregatesFilter<"Record"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Record"> | string | null
-  category?: Prisma.StringNullableWithAggregatesFilter<"Record"> | string | null
+  category?: Prisma.EnumFileCategoryWithAggregatesFilter<"Record"> | $Enums.FileCategory
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Record"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Record"> | Date | string
 }
@@ -256,7 +256,7 @@ export type RecordCreateInput = {
   id?: string
   fileName: string
   description?: string | null
-  category?: string | null
+  category?: $Enums.FileCategory
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy: Prisma.UserCreateNestedOneWithoutRecordsInput
@@ -267,7 +267,7 @@ export type RecordUncheckedCreateInput = {
   createdById: string
   fileName: string
   description?: string | null
-  category?: string | null
+  category?: $Enums.FileCategory
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -276,7 +276,7 @@ export type RecordUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneRequiredWithoutRecordsNestedInput
@@ -287,7 +287,7 @@ export type RecordUncheckedUpdateInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -297,7 +297,7 @@ export type RecordCreateManyInput = {
   createdById: string
   fileName: string
   description?: string | null
-  category?: string | null
+  category?: $Enums.FileCategory
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -306,7 +306,7 @@ export type RecordUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -316,7 +316,7 @@ export type RecordUncheckedUpdateManyInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -407,11 +407,15 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type EnumFileCategoryFieldUpdateOperationsInput = {
+  set?: $Enums.FileCategory
+}
+
 export type RecordCreateWithoutCreatedByInput = {
   id?: string
   fileName: string
   description?: string | null
-  category?: string | null
+  category?: $Enums.FileCategory
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -420,7 +424,7 @@ export type RecordUncheckedCreateWithoutCreatedByInput = {
   id?: string
   fileName: string
   description?: string | null
-  category?: string | null
+  category?: $Enums.FileCategory
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -459,7 +463,7 @@ export type RecordScalarWhereInput = {
   createdById?: Prisma.StringFilter<"Record"> | string
   fileName?: Prisma.StringFilter<"Record"> | string
   description?: Prisma.StringNullableFilter<"Record"> | string | null
-  category?: Prisma.StringNullableFilter<"Record"> | string | null
+  category?: Prisma.EnumFileCategoryFilter<"Record"> | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFilter<"Record"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Record"> | Date | string
 }
@@ -468,7 +472,7 @@ export type RecordCreateManyCreatedByInput = {
   id?: string
   fileName: string
   description?: string | null
-  category?: string | null
+  category?: $Enums.FileCategory
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -477,7 +481,7 @@ export type RecordUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -486,7 +490,7 @@ export type RecordUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -495,7 +499,7 @@ export type RecordUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -566,7 +570,7 @@ export type $RecordPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     createdById: string
     fileName: string
     description: string | null
-    category: string | null
+    category: $Enums.FileCategory
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["record"]>
@@ -997,7 +1001,7 @@ export interface RecordFieldRefs {
   readonly createdById: Prisma.FieldRef<"Record", 'String'>
   readonly fileName: Prisma.FieldRef<"Record", 'String'>
   readonly description: Prisma.FieldRef<"Record", 'String'>
-  readonly category: Prisma.FieldRef<"Record", 'String'>
+  readonly category: Prisma.FieldRef<"Record", 'FileCategory'>
   readonly createdAt: Prisma.FieldRef<"Record", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Record", 'DateTime'>
 }

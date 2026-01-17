@@ -104,6 +104,13 @@ export type StringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
+export type EnumFileCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel> | $Enums.FileCategory
+}
+
 export type SortOrderInput = {
   sort: Prisma.SortOrder
   nulls?: Prisma.NullsOrder
@@ -125,6 +132,16 @@ export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedStringNullableFilter<$PrismaModel>
   _max?: Prisma.NestedStringNullableFilter<$PrismaModel>
+}
+
+export type EnumFileCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FileCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -225,6 +242,13 @@ export type NestedStringNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringNullableFilter<$PrismaModel> | string | null
 }
 
+export type NestedEnumFileCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel> | $Enums.FileCategory
+}
+
 export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -251,6 +275,16 @@ export type NestedIntNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumFileCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FileCategory | Prisma.EnumFileCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FileCategory[] | Prisma.ListEnumFileCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFileCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FileCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFileCategoryFilter<$PrismaModel>
 }
 
 

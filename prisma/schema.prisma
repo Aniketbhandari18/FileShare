@@ -31,7 +31,7 @@ model Record {
   createdById String
   fileName String
   description String?
-  category String?
+  category FileCategory @default(OTHER)
   createdBy User @relation(fields: [createdById], references: [id])
 
   createdAt DateTime @default(now())
@@ -41,4 +41,13 @@ model Record {
 enum Role {
   SENDER
   RECEIVER
+}
+
+enum FileCategory {
+  DOCUMENTS
+  IMAGES
+  REPORTS
+  ASSIGNMENTS
+  PRESENTATIONS
+  OTHER
 }

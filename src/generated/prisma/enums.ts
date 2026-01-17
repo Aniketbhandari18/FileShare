@@ -15,3 +15,15 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const FileCategory = {
+  DOCUMENTS: 'DOCUMENTS',
+  IMAGES: 'IMAGES',
+  REPORTS: 'REPORTS',
+  ASSIGNMENTS: 'ASSIGNMENTS',
+  PRESENTATIONS: 'PRESENTATIONS',
+  OTHER: 'OTHER'
+} as const
+
+export type FileCategory = (typeof FileCategory)[keyof typeof FileCategory]
