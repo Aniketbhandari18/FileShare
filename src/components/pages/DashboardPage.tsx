@@ -2,6 +2,7 @@ import RecordList from "../RecordList";
 import prisma from "@/lib/prisma";
 import { Record, User } from "@/generated/prisma/client";
 import { getUser } from "@/lib/getUser";
+import CreateRecordButton from "../CreateRecordButton";
 
 const DashboardPage = async () => {
   const { userId, role } = await getUser();
@@ -35,7 +36,11 @@ const DashboardPage = async () => {
 
   return (
     <div>
-      <div className="text-2xl font-semibold mt-2 ml-4">Dashboard</div>
+      <div className="flex justify-between text-2xl font-semibold mt-2 ml-4 mr-4">
+        <span>Dashboard</span>
+        <CreateRecordButton />
+      </div>
+
       <RecordList role={role} records={records} />
     </div>
   );

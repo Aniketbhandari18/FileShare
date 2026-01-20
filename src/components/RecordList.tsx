@@ -88,7 +88,8 @@ const RecordList = ({ role, records }: Props) => {
                           {record.description}
                         </TableCell>
                         <TableCell className="capitalize">
-                          {record.category}
+                          {record.category[0] +
+                            record.category.slice(1).toLowerCase()}
                         </TableCell>
                         {role === "RECEIVER" && (
                           <TableCell>{record.createdBy.email}</TableCell>
