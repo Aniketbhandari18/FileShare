@@ -99,7 +99,7 @@ const RecordList = ({ role, records }: Props) => {
                         </TableCell>
                         <TableCell className="text-right">
                           <Button variant="ghost" size="sm" asChild>
-                            <Link href={`/record/${record.id}`}>
+                            <Link href={record.fileUrl} target="_blank">
                               <Eye className="h-4 w-4" />
                               View
                             </Link>

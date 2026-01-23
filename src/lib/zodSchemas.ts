@@ -19,27 +19,6 @@ export const SignInFormSchema = z.object({
 });
 
 export const createRecordFormSchema = z.object({
-  file: z
-    .file("File is required")
-    .min(1000, "File too small (min 1KB)")
-    .max(100000000, "File size must be less than 100MB")
-    .mime(
-      [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.ms-powerpoint",
-        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        "image/jpeg",
-        "image/png",
-        "image/gif",
-        "video/mp4",
-        "video/webm",
-        "audio/mpeg",
-      ],
-      "Unsupported file type",
-    ),
-
   fileName: z
     .string()
     .trim()

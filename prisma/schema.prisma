@@ -32,6 +32,13 @@ model Record {
   fileName String
   description String?
   category FileCategory @default(OTHER)
+
+  orgFileName String // org file name that was uploaded
+  fileKey String @unique
+  fileUrl String
+  fileType String // from uploadthing. eg: application/pdf
+  fileSize Int
+  
   createdBy User @relation(fields: [createdById], references: [id])
 
   createdAt DateTime @default(now())

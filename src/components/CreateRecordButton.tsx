@@ -1,13 +1,11 @@
 "use client";
 
-import { Loader2, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -36,38 +34,32 @@ import {
   SelectValue,
 } from "./ui/select";
 import { FileCategory } from "@/generated/prisma/enums";
-import { useState, useTransition } from "react";
-import { parseFileName } from "@/lib/utils";
+import { useState } from "react";
+import { UploadButton } from "@/lib/uploadthing";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const CreateRecordButton = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
-  const [fileExtension, setFileExtension] = useState<string>("");
-  const [focus, setFocus] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof createRecordFormSchema>>({
     resolver: zodResolver(createRecordFormSchema),
     defaultValues: {
-      file: undefined,
       fileName: "",
       fileDescription: "",
       category: "OTHER",
     },
+    mode: "onChange",
   });
 
-  const handleFormSubmit = (values: z.infer<typeof createRecordFormSchema>) => {
-    startTransition(() => {
-      console.log("Form submitted");
-      console.log(values);
-    });
-  };
+  const { isValid, isDirty } = form.formState;
+  const uploadButtonDisabled = !isValid || !isDirty;
 
   const handleOpenChange = () => {
     setOpen(!open);
     form.reset();
-    setFileExtension("");
-    setFocus(false);
   };
 
   return (
@@ -87,67 +79,20 @@ const CreateRecordButton = () => {
         </DialogHeader>
 
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleFormSubmit)}
-            className="space-y-4"
-          >
-            {/* File Input */}
-            <FormField
-              control={form.control}
-              name="file"
-              render={({ field: { value, onChange, ...fieldProps } }) => (
-                <FormItem>
-                  <FormLabel>File</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      {...fieldProps}
-                      className="pr-8"
-                      accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.gif,.mp4,.webm,.mp3"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        onChange(file);
-
-                        if (file) {
-                          const { name, ext } = parseFileName(file.name);
-                          form.setValue("fileName", name);
-
-                          setFileExtension(`.${ext}`);
-                        }
-                      }}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+          <form className="space-y-4">
             {/* File Name */}
             <FormField
               control={form.control}
               name="fileName"
-              render={({ field: { onBlur, ...fieldProps } }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>File Name</FormLabel>
                   <FormControl>
                     <div className="flex relative">
                       <Input
-                        onFocus={() => setFocus(true)}
-                        onBlur={() => {
-                          setFocus(false);
-                          onBlur();
-                        }}
-                        className=""
-                        placeholder="File name"
-                        {...fieldProps}
+                        placeholder="File name (without ext.)"
+                        {...field}
                       />
-                      {fileExtension && (
-                        <div
-                          className={`flex items-center px-3 bg-muted border border-input rounded-r-md text-muted-foreground text-sm font-medium select-none absolute top-0 right-0 bottom-0 ${focus && "border-x-gray-400 border-y-gray-400"}`}
-                        >
-                          {fileExtension}
-                        </div>
-                      )}
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -210,26 +155,27 @@ const CreateRecordButton = () => {
                 </FormItem>
               )}
             />
-
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline" disabled={isPending}>
-                  Cancel
-                </Button>
-              </DialogClose>
-              <Button type="submit" disabled={isPending}>
-                {isPending ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Creating...
-                  </>
-                ) : (
-                  "Create Record"
-                )}
-              </Button>
-            </DialogFooter>
           </form>
         </Form>
+
+        <div className="mt-4">
+          <UploadButton
+            endpoint="recordUploader"
+            input={{ values: form.getValues() }}
+            disabled={uploadButtonDisabled}
+            appearance={{
+              button: `w-full flex items-center justify-center gap-2 ${uploadButtonDisabled ? "bg-black/75!" : "bg-black!"}`,
+            }}
+            onClientUploadComplete={() => {
+              handleOpenChange();
+              toast.success("Record created successfully");
+              router.refresh();
+            }}
+            onUploadError={(error: Error) => {
+              toast.error(error.message);
+            }}
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );

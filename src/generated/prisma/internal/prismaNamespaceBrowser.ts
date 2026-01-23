@@ -90,6 +90,11 @@ export const RecordScalarFieldEnum = {
   fileName: 'fileName',
   description: 'description',
   category: 'category',
+  orgFileName: 'orgFileName',
+  fileKey: 'fileKey',
+  fileUrl: 'fileUrl',
+  fileType: 'fileType',
+  fileSize: 'fileSize',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
