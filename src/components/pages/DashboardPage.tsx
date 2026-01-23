@@ -38,7 +38,7 @@ const DashboardPage = async () => {
     <div>
       <div className="flex justify-between text-2xl font-semibold mt-2 ml-4 mr-4">
         <span>Dashboard</span>
-        <CreateRecordButton />
+        {role === "SENDER" && <CreateRecordButton />}
       </div>
 
       <RecordList role={role} records={records} />
