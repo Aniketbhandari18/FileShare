@@ -6,3 +6,5 @@ export interface MyJwtPayload extends JwtPayload {
   email: string;
   role: Role;
 }
+
+export type RecordStatus = "ACTIVE" | "EXPIRED" | "REVOKED";

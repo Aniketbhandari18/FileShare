@@ -50,6 +50,8 @@ const CreateRecordButton = () => {
       fileName: "",
       fileDescription: "",
       category: "OTHER",
+      expiry: "10m",
+      password: "",
     },
     mode: "onChange",
   });
@@ -150,6 +152,62 @@ const CreateRecordButton = () => {
                         </SelectGroup>
                       </SelectContent>
                     </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* File Expiry */}
+            <FormField
+              control={form.control}
+              name="expiry"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <FormControl>
+                    <Select defaultValue="10m" onValueChange={field.onChange}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue
+                          placeholder="Expiry"
+                          className="font-semibold"
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Expiry</SelectLabel>
+                          <SelectItem value="10m" className="font-semibold">
+                            10m
+                          </SelectItem>
+                          <SelectItem value="1hr" className="font-semibold">
+                            1hr
+                          </SelectItem>
+                          <SelectItem value="24hrs" className="font-semibold">
+                            24hrs
+                          </SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* File Password */}
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="gap-1">
+                    <span>Password Protection</span>
+                    <span className="text-muted-foreground">(optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div className="flex relative">
+                      <Input placeholder="Password" {...field} />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

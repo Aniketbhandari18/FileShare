@@ -6,6 +6,9 @@ import { createRecordFormSchema } from "@/lib/zodSchemas";
 import { UploadedFileData } from "uploadthing/types";
 import z from "zod";
 import mime from "mime-types";
+import { EXPIRY_MAP } from "@/constants";
+import bcrypt from "bcryptjs";
+import { customAlphabet } from "nanoid";
 
 export async function addRecord(
   values: z.infer<typeof createRecordFormSchema>,
@@ -24,18 +27,34 @@ export async function addRecord(
       throw new Error(validation.error.issues[0].message);
     }
 
+    const nanoid = customAlphabet(
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      16,
+    );
+    const fileKey = nanoid();
+
+    const password = validation.data.password;
+    const hashedPassword = password
+      ? await bcrypt.hash(validation.data.password, 10)
+      : null;
+
     const ext = mime.extension(file.type); // file extension
     const fileName = ext ? values.fileName + "." + ext : values.fileName; // file name with extension
+
+    const expiresAt = new Date(Date.now() + EXPIRY_MAP[values.expiry]);
 
     try {
       await prisma.record.create({
         data: {
+          fileKey: fileKey,
           fileName: fileName,
           description: values.fileDescription,
           category: values.category,
+          expiresAt: expiresAt,
+          password: hashedPassword || null,
           createdById: createdById,
           orgFileName: file.name,
-          fileKey: file.key,
+          uploadThingFileKey: file.key,
           fileUrl: file.ufsUrl,
           fileType: file.type,
           fileSize: file.size,

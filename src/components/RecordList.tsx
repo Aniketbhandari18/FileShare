@@ -15,10 +15,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { FileText, Eye } from "lucide-react";
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { Role } from "@/generated/prisma/enums";
 import { Record, User } from "@/generated/prisma/client";
 import Link from "next/link";
+import { getRecordStatus } from "@/lib/record";
+import { filesize } from "filesize";
 
 type Props = {
   role: Role;
@@ -43,10 +45,7 @@ const RecordList = ({ role, records }: Props) => {
               {role === "SENDER" ? (
                 <span>Records you have created ({records.length})</span>
               ) : (
-                <span>
-                  View all file records from all senders ({records.length}{" "}
-                  total)
-                </span>
+                <span>Files shared with you ({records.length} total)</span>
               )}
             </CardDescription>
           </CardHeader>
@@ -61,7 +60,7 @@ const RecordList = ({ role, records }: Props) => {
                   </p>
                 ) : (
                   <p className="text-sm">
-                    Records will appear here when senders create them
+                    No files have been shared with you yet
                   </p>
                 )}
               </div>
@@ -75,6 +74,9 @@ const RecordList = ({ role, records }: Props) => {
                       <TableHead>Category</TableHead>
                       {role === "RECEIVER" && <TableHead>Created By</TableHead>}
                       <TableHead>Created</TableHead>
+                      <TableHead>Size</TableHead>
+                      <TableHead>Expiry</TableHead>
+                      <TableHead>Status</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -96,6 +98,17 @@ const RecordList = ({ role, records }: Props) => {
                         )}
                         <TableCell>
                           {format(new Date(record.createdAt), "MMM d, yyyy")}
+                        </TableCell>
+                        <TableCell className="max-w-60 truncate">
+                          {filesize(record.fileSize)}
+                        </TableCell>
+                        <TableCell className="max-w-60 truncate">
+                          {formatDistanceToNow(new Date(record.expiresAt), {
+                            addSuffix: true,
+                          })}
+                        </TableCell>
+                        <TableCell className="max-w-60 truncate">
+                          {getRecordStatus(record)}
                         </TableCell>
                         <TableCell className="text-right">
                           <Button variant="ghost" size="sm" asChild>

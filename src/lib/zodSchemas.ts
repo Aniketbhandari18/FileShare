@@ -32,4 +32,11 @@ export const createRecordFormSchema = z.object({
     .max(500, "Description must be at most 500 characters."),
 
   category: z.enum(FileCategory),
+
+  expiry: z.enum(["10m", "1hr", "24hrs"]),
+
+  password: z.union([
+    z.literal(""),
+    z.string().trim().min(4, "Password must be at least 4 characters"),
+  ]),
 });
