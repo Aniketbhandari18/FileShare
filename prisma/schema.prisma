@@ -33,8 +33,13 @@ model Record {
   description String?
   category FileCategory @default(OTHER)
 
-  orgFileName String // org file name that was uploaded
   fileKey String @unique
+  password String?
+  expiresAt DateTime
+  isRevoked Boolean @default(false)
+
+  orgFileName String // org file name that was uploaded
+  uploadThingFileKey String @unique // uploadthing file key
   fileUrl String
   fileType String // from uploadthing. eg: application/pdf
   fileSize Int

@@ -40,8 +40,12 @@ export type RecordMinAggregateOutputType = {
   fileName: string | null
   description: string | null
   category: $Enums.FileCategory | null
-  orgFileName: string | null
   fileKey: string | null
+  password: string | null
+  expiresAt: Date | null
+  isRevoked: boolean | null
+  orgFileName: string | null
+  uploadThingFileKey: string | null
   fileUrl: string | null
   fileType: string | null
   fileSize: number | null
@@ -55,8 +59,12 @@ export type RecordMaxAggregateOutputType = {
   fileName: string | null
   description: string | null
   category: $Enums.FileCategory | null
-  orgFileName: string | null
   fileKey: string | null
+  password: string | null
+  expiresAt: Date | null
+  isRevoked: boolean | null
+  orgFileName: string | null
+  uploadThingFileKey: string | null
   fileUrl: string | null
   fileType: string | null
   fileSize: number | null
@@ -70,8 +78,12 @@ export type RecordCountAggregateOutputType = {
   fileName: number
   description: number
   category: number
-  orgFileName: number
   fileKey: number
+  password: number
+  expiresAt: number
+  isRevoked: number
+  orgFileName: number
+  uploadThingFileKey: number
   fileUrl: number
   fileType: number
   fileSize: number
@@ -95,8 +107,12 @@ export type RecordMinAggregateInputType = {
   fileName?: true
   description?: true
   category?: true
-  orgFileName?: true
   fileKey?: true
+  password?: true
+  expiresAt?: true
+  isRevoked?: true
+  orgFileName?: true
+  uploadThingFileKey?: true
   fileUrl?: true
   fileType?: true
   fileSize?: true
@@ -110,8 +126,12 @@ export type RecordMaxAggregateInputType = {
   fileName?: true
   description?: true
   category?: true
-  orgFileName?: true
   fileKey?: true
+  password?: true
+  expiresAt?: true
+  isRevoked?: true
+  orgFileName?: true
+  uploadThingFileKey?: true
   fileUrl?: true
   fileType?: true
   fileSize?: true
@@ -125,8 +145,12 @@ export type RecordCountAggregateInputType = {
   fileName?: true
   description?: true
   category?: true
-  orgFileName?: true
   fileKey?: true
+  password?: true
+  expiresAt?: true
+  isRevoked?: true
+  orgFileName?: true
+  uploadThingFileKey?: true
   fileUrl?: true
   fileType?: true
   fileSize?: true
@@ -227,8 +251,12 @@ export type RecordGroupByOutputType = {
   fileName: string
   description: string | null
   category: $Enums.FileCategory
-  orgFileName: string
   fileKey: string
+  password: string | null
+  expiresAt: Date
+  isRevoked: boolean
+  orgFileName: string
+  uploadThingFileKey: string
   fileUrl: string
   fileType: string
   fileSize: number
@@ -265,8 +293,12 @@ export type RecordWhereInput = {
   fileName?: Prisma.StringFilter<"Record"> | string
   description?: Prisma.StringNullableFilter<"Record"> | string | null
   category?: Prisma.EnumFileCategoryFilter<"Record"> | $Enums.FileCategory
-  orgFileName?: Prisma.StringFilter<"Record"> | string
   fileKey?: Prisma.StringFilter<"Record"> | string
+  password?: Prisma.StringNullableFilter<"Record"> | string | null
+  expiresAt?: Prisma.DateTimeFilter<"Record"> | Date | string
+  isRevoked?: Prisma.BoolFilter<"Record"> | boolean
+  orgFileName?: Prisma.StringFilter<"Record"> | string
+  uploadThingFileKey?: Prisma.StringFilter<"Record"> | string
   fileUrl?: Prisma.StringFilter<"Record"> | string
   fileType?: Prisma.StringFilter<"Record"> | string
   fileSize?: Prisma.IntFilter<"Record"> | number
@@ -281,8 +313,12 @@ export type RecordOrderByWithRelationInput = {
   fileName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
-  orgFileName?: Prisma.SortOrder
   fileKey?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  isRevoked?: Prisma.SortOrder
+  orgFileName?: Prisma.SortOrder
+  uploadThingFileKey?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -294,6 +330,7 @@ export type RecordOrderByWithRelationInput = {
 export type RecordWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   fileKey?: string
+  uploadThingFileKey?: string
   AND?: Prisma.RecordWhereInput | Prisma.RecordWhereInput[]
   OR?: Prisma.RecordWhereInput[]
   NOT?: Prisma.RecordWhereInput | Prisma.RecordWhereInput[]
@@ -301,6 +338,9 @@ export type RecordWhereUniqueInput = Prisma.AtLeast<{
   fileName?: Prisma.StringFilter<"Record"> | string
   description?: Prisma.StringNullableFilter<"Record"> | string | null
   category?: Prisma.EnumFileCategoryFilter<"Record"> | $Enums.FileCategory
+  password?: Prisma.StringNullableFilter<"Record"> | string | null
+  expiresAt?: Prisma.DateTimeFilter<"Record"> | Date | string
+  isRevoked?: Prisma.BoolFilter<"Record"> | boolean
   orgFileName?: Prisma.StringFilter<"Record"> | string
   fileUrl?: Prisma.StringFilter<"Record"> | string
   fileType?: Prisma.StringFilter<"Record"> | string
@@ -308,7 +348,7 @@ export type RecordWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Record"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Record"> | Date | string
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "fileKey">
+}, "id" | "fileKey" | "uploadThingFileKey">
 
 export type RecordOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -316,8 +356,12 @@ export type RecordOrderByWithAggregationInput = {
   fileName?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
-  orgFileName?: Prisma.SortOrder
   fileKey?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  isRevoked?: Prisma.SortOrder
+  orgFileName?: Prisma.SortOrder
+  uploadThingFileKey?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -339,8 +383,12 @@ export type RecordScalarWhereWithAggregatesInput = {
   fileName?: Prisma.StringWithAggregatesFilter<"Record"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Record"> | string | null
   category?: Prisma.EnumFileCategoryWithAggregatesFilter<"Record"> | $Enums.FileCategory
-  orgFileName?: Prisma.StringWithAggregatesFilter<"Record"> | string
   fileKey?: Prisma.StringWithAggregatesFilter<"Record"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"Record"> | string | null
+  expiresAt?: Prisma.DateTimeWithAggregatesFilter<"Record"> | Date | string
+  isRevoked?: Prisma.BoolWithAggregatesFilter<"Record"> | boolean
+  orgFileName?: Prisma.StringWithAggregatesFilter<"Record"> | string
+  uploadThingFileKey?: Prisma.StringWithAggregatesFilter<"Record"> | string
   fileUrl?: Prisma.StringWithAggregatesFilter<"Record"> | string
   fileType?: Prisma.StringWithAggregatesFilter<"Record"> | string
   fileSize?: Prisma.IntWithAggregatesFilter<"Record"> | number
@@ -353,8 +401,12 @@ export type RecordCreateInput = {
   fileName: string
   description?: string | null
   category?: $Enums.FileCategory
-  orgFileName: string
   fileKey: string
+  password?: string | null
+  expiresAt: Date | string
+  isRevoked?: boolean
+  orgFileName: string
+  uploadThingFileKey: string
   fileUrl: string
   fileType: string
   fileSize: number
@@ -369,8 +421,12 @@ export type RecordUncheckedCreateInput = {
   fileName: string
   description?: string | null
   category?: $Enums.FileCategory
-  orgFileName: string
   fileKey: string
+  password?: string | null
+  expiresAt: Date | string
+  isRevoked?: boolean
+  orgFileName: string
+  uploadThingFileKey: string
   fileUrl: string
   fileType: string
   fileSize: number
@@ -383,8 +439,12 @@ export type RecordUpdateInput = {
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
-  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
   fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRevoked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadThingFileKey?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -399,8 +459,12 @@ export type RecordUncheckedUpdateInput = {
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
-  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
   fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRevoked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadThingFileKey?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -414,8 +478,12 @@ export type RecordCreateManyInput = {
   fileName: string
   description?: string | null
   category?: $Enums.FileCategory
-  orgFileName: string
   fileKey: string
+  password?: string | null
+  expiresAt: Date | string
+  isRevoked?: boolean
+  orgFileName: string
+  uploadThingFileKey: string
   fileUrl: string
   fileType: string
   fileSize: number
@@ -428,8 +496,12 @@ export type RecordUpdateManyMutationInput = {
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
-  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
   fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRevoked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadThingFileKey?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -443,8 +515,12 @@ export type RecordUncheckedUpdateManyInput = {
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
-  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
   fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRevoked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadThingFileKey?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -468,8 +544,12 @@ export type RecordCountOrderByAggregateInput = {
   fileName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  orgFileName?: Prisma.SortOrder
   fileKey?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  isRevoked?: Prisma.SortOrder
+  orgFileName?: Prisma.SortOrder
+  uploadThingFileKey?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -487,8 +567,12 @@ export type RecordMaxOrderByAggregateInput = {
   fileName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  orgFileName?: Prisma.SortOrder
   fileKey?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  isRevoked?: Prisma.SortOrder
+  orgFileName?: Prisma.SortOrder
+  uploadThingFileKey?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -502,8 +586,12 @@ export type RecordMinOrderByAggregateInput = {
   fileName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  orgFileName?: Prisma.SortOrder
   fileKey?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  isRevoked?: Prisma.SortOrder
+  orgFileName?: Prisma.SortOrder
+  uploadThingFileKey?: Prisma.SortOrder
   fileUrl?: Prisma.SortOrder
   fileType?: Prisma.SortOrder
   fileSize?: Prisma.SortOrder
@@ -565,6 +653,10 @@ export type EnumFileCategoryFieldUpdateOperationsInput = {
   set?: $Enums.FileCategory
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -578,8 +670,12 @@ export type RecordCreateWithoutCreatedByInput = {
   fileName: string
   description?: string | null
   category?: $Enums.FileCategory
-  orgFileName: string
   fileKey: string
+  password?: string | null
+  expiresAt: Date | string
+  isRevoked?: boolean
+  orgFileName: string
+  uploadThingFileKey: string
   fileUrl: string
   fileType: string
   fileSize: number
@@ -592,8 +688,12 @@ export type RecordUncheckedCreateWithoutCreatedByInput = {
   fileName: string
   description?: string | null
   category?: $Enums.FileCategory
-  orgFileName: string
   fileKey: string
+  password?: string | null
+  expiresAt: Date | string
+  isRevoked?: boolean
+  orgFileName: string
+  uploadThingFileKey: string
   fileUrl: string
   fileType: string
   fileSize: number
@@ -636,8 +736,12 @@ export type RecordScalarWhereInput = {
   fileName?: Prisma.StringFilter<"Record"> | string
   description?: Prisma.StringNullableFilter<"Record"> | string | null
   category?: Prisma.EnumFileCategoryFilter<"Record"> | $Enums.FileCategory
-  orgFileName?: Prisma.StringFilter<"Record"> | string
   fileKey?: Prisma.StringFilter<"Record"> | string
+  password?: Prisma.StringNullableFilter<"Record"> | string | null
+  expiresAt?: Prisma.DateTimeFilter<"Record"> | Date | string
+  isRevoked?: Prisma.BoolFilter<"Record"> | boolean
+  orgFileName?: Prisma.StringFilter<"Record"> | string
+  uploadThingFileKey?: Prisma.StringFilter<"Record"> | string
   fileUrl?: Prisma.StringFilter<"Record"> | string
   fileType?: Prisma.StringFilter<"Record"> | string
   fileSize?: Prisma.IntFilter<"Record"> | number
@@ -650,8 +754,12 @@ export type RecordCreateManyCreatedByInput = {
   fileName: string
   description?: string | null
   category?: $Enums.FileCategory
-  orgFileName: string
   fileKey: string
+  password?: string | null
+  expiresAt: Date | string
+  isRevoked?: boolean
+  orgFileName: string
+  uploadThingFileKey: string
   fileUrl: string
   fileType: string
   fileSize: number
@@ -664,8 +772,12 @@ export type RecordUpdateWithoutCreatedByInput = {
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
-  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
   fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRevoked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadThingFileKey?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -678,8 +790,12 @@ export type RecordUncheckedUpdateWithoutCreatedByInput = {
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
-  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
   fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRevoked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadThingFileKey?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -692,8 +808,12 @@ export type RecordUncheckedUpdateManyWithoutCreatedByInput = {
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumFileCategoryFieldUpdateOperationsInput | $Enums.FileCategory
-  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
   fileKey?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isRevoked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  orgFileName?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadThingFileKey?: Prisma.StringFieldUpdateOperationsInput | string
   fileUrl?: Prisma.StringFieldUpdateOperationsInput | string
   fileType?: Prisma.StringFieldUpdateOperationsInput | string
   fileSize?: Prisma.IntFieldUpdateOperationsInput | number
@@ -709,8 +829,12 @@ export type RecordSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   fileName?: boolean
   description?: boolean
   category?: boolean
-  orgFileName?: boolean
   fileKey?: boolean
+  password?: boolean
+  expiresAt?: boolean
+  isRevoked?: boolean
+  orgFileName?: boolean
+  uploadThingFileKey?: boolean
   fileUrl?: boolean
   fileType?: boolean
   fileSize?: boolean
@@ -725,8 +849,12 @@ export type RecordSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   fileName?: boolean
   description?: boolean
   category?: boolean
-  orgFileName?: boolean
   fileKey?: boolean
+  password?: boolean
+  expiresAt?: boolean
+  isRevoked?: boolean
+  orgFileName?: boolean
+  uploadThingFileKey?: boolean
   fileUrl?: boolean
   fileType?: boolean
   fileSize?: boolean
@@ -741,8 +869,12 @@ export type RecordSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   fileName?: boolean
   description?: boolean
   category?: boolean
-  orgFileName?: boolean
   fileKey?: boolean
+  password?: boolean
+  expiresAt?: boolean
+  isRevoked?: boolean
+  orgFileName?: boolean
+  uploadThingFileKey?: boolean
   fileUrl?: boolean
   fileType?: boolean
   fileSize?: boolean
@@ -757,8 +889,12 @@ export type RecordSelectScalar = {
   fileName?: boolean
   description?: boolean
   category?: boolean
-  orgFileName?: boolean
   fileKey?: boolean
+  password?: boolean
+  expiresAt?: boolean
+  isRevoked?: boolean
+  orgFileName?: boolean
+  uploadThingFileKey?: boolean
   fileUrl?: boolean
   fileType?: boolean
   fileSize?: boolean
@@ -766,7 +902,7 @@ export type RecordSelectScalar = {
   updatedAt?: boolean
 }
 
-export type RecordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdById" | "fileName" | "description" | "category" | "orgFileName" | "fileKey" | "fileUrl" | "fileType" | "fileSize" | "createdAt" | "updatedAt", ExtArgs["result"]["record"]>
+export type RecordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdById" | "fileName" | "description" | "category" | "fileKey" | "password" | "expiresAt" | "isRevoked" | "orgFileName" | "uploadThingFileKey" | "fileUrl" | "fileType" | "fileSize" | "createdAt" | "updatedAt", ExtArgs["result"]["record"]>
 export type RecordInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -788,8 +924,12 @@ export type $RecordPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     fileName: string
     description: string | null
     category: $Enums.FileCategory
-    orgFileName: string
     fileKey: string
+    password: string | null
+    expiresAt: Date
+    isRevoked: boolean
+    orgFileName: string
+    uploadThingFileKey: string
     fileUrl: string
     fileType: string
     fileSize: number
@@ -1224,8 +1364,12 @@ export interface RecordFieldRefs {
   readonly fileName: Prisma.FieldRef<"Record", 'String'>
   readonly description: Prisma.FieldRef<"Record", 'String'>
   readonly category: Prisma.FieldRef<"Record", 'FileCategory'>
-  readonly orgFileName: Prisma.FieldRef<"Record", 'String'>
   readonly fileKey: Prisma.FieldRef<"Record", 'String'>
+  readonly password: Prisma.FieldRef<"Record", 'String'>
+  readonly expiresAt: Prisma.FieldRef<"Record", 'DateTime'>
+  readonly isRevoked: Prisma.FieldRef<"Record", 'Boolean'>
+  readonly orgFileName: Prisma.FieldRef<"Record", 'String'>
+  readonly uploadThingFileKey: Prisma.FieldRef<"Record", 'String'>
   readonly fileUrl: Prisma.FieldRef<"Record", 'String'>
   readonly fileType: Prisma.FieldRef<"Record", 'String'>
   readonly fileSize: Prisma.FieldRef<"Record", 'Int'>
