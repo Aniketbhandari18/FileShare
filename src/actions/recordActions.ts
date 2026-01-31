@@ -9,6 +9,8 @@ import mime from "mime-types";
 import { EXPIRY_MAP } from "@/constants";
 import bcrypt from "bcryptjs";
 import { customAlphabet } from "nanoid";
+import { getUser } from "@/lib/getUser";
+import { revalidatePath } from "next/cache";
 
 export async function addRecord(
   values: z.infer<typeof createRecordFormSchema>,
@@ -69,6 +71,97 @@ export async function addRecord(
     };
   } catch (error) {
     console.log(error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Something went wrong",
+    };
+  }
+}
+
+export async function deleteRecord(recordId: string) {
+  try {
+    if (!recordId) {
+      throw new Error("Record id is required");
+    }
+
+    const { userId, role } = await getUser();
+
+    if (role !== "SENDER") {
+      throw new Error("You are not authorized to perform this action");
+    }
+
+    const record = await prisma.record.findUnique({
+      where: { id: recordId },
+    });
+
+    if (!record) {
+      throw new Error("Record doesn't exist");
+    }
+
+    if (record.createdById !== userId) {
+      throw new Error("You are not authorized to perform this action");
+    }
+
+    await prisma.record.delete({
+      where: { id: recordId },
+    });
+
+    revalidatePath("/dashboard");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Something went wrong",
+    };
+  }
+}
+
+export async function revokeAccess(recordId: string) {
+  try {
+    if (!recordId) {
+      throw new Error("Record id is required");
+    }
+
+    const { userId, role } = await getUser();
+
+    if (role !== "SENDER") {
+      throw new Error("You are not authorized to perform this action");
+    }
+
+    const record = await prisma.record.findUnique({
+      where: { id: recordId },
+    });
+
+    if (!record) {
+      throw new Error("Record doesn't exist");
+    }
+
+    if (record.createdById !== userId) {
+      throw new Error("You are not authorized to perform this action");
+    }
+
+    if (record.isRevoked) {
+      throw new Error("Record is already revoked");
+    }
+
+    await prisma.record.update({
+      where: { id: recordId },
+      data: { isRevoked: true },
+    });
+
+    revalidatePath("/dashboard");
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.log(error);
+
     return {
       success: false,
       error: error instanceof Error ? error.message : "Something went wrong",

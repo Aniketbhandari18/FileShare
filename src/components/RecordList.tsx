@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,13 +13,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FileText, Eye } from "lucide-react";
+import { FileText } from "lucide-react";
 import { format, formatDistanceToNow } from "date-fns";
 import { Role } from "@/generated/prisma/enums";
 import { Record, User } from "@/generated/prisma/client";
-import Link from "next/link";
 import { getRecordStatus } from "@/lib/record";
 import { filesize } from "filesize";
+import ActionsDialogMenu from "./ActionsDialogMenu";
 
 type Props = {
   role: Role;
@@ -110,13 +109,8 @@ const RecordList = ({ role, records }: Props) => {
                         <TableCell className="max-w-60 truncate">
                           {getRecordStatus(record)}
                         </TableCell>
-                        <TableCell className="text-right">
-                          <Button variant="ghost" size="sm" asChild>
-                            <Link href={record.fileUrl} target="_blank">
-                              <Eye className="h-4 w-4" />
-                              View
-                            </Link>
-                          </Button>
+                        <TableCell className="text-right pr-5">
+                          <ActionsDialogMenu role={role} record={record} />
                         </TableCell>
                       </TableRow>
                     ))}
