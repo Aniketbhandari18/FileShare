@@ -28,7 +28,7 @@ type Props = {
   record: Record;
 };
 
-type LoadingAction = "revoke" | "delete" | "download" | null;
+type LoadingAction = "revoke" | "delete" | null;
 
 const ActionsDialogMenu = ({ role, record }: Props) => {
   const [open, setOpen] = useState(false);
@@ -44,11 +44,6 @@ const ActionsDialogMenu = ({ role, record }: Props) => {
   const handleCopyLink = () => {
     navigator.clipboard.writeText(fileUrl);
     toast.success("File link has been copied to clipboard");
-  };
-
-  // will implement later
-  const handleDownload = () => {
-    console.log("downloading...");
   };
 
   const handleRevoke = async () => {
@@ -120,12 +115,11 @@ const ActionsDialogMenu = ({ role, record }: Props) => {
         </DropdownMenuItem>
 
         {/* Download File */}
-        <DropdownMenuItem
-          onClick={() => handleDownload()}
-          disabled={isInactive || isLoading}
-        >
-          <Download className="h-4 w-4" />
-          Download
+        <DropdownMenuItem disabled={isInactive || isLoading} asChild>
+          <Link href={`/api/record/${record.id}/download`}>
+            <Download className="h-4 w-4" />
+            Download
+          </Link>
         </DropdownMenuItem>
 
         {/* Sender-only actions */}
