@@ -27,3 +27,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Record = Prisma.RecordModel
+/**
+ * Model RecordAccess
+ * 
+ */
+export type RecordAccess = Prisma.RecordAccessModel

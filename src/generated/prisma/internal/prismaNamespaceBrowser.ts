@@ -52,7 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Record: 'Record'
+  Record: 'Record',
+  RecordAccess: 'RecordAccess'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -104,6 +105,16 @@ export const RecordScalarFieldEnum = {
 } as const
 
 export type RecordScalarFieldEnum = (typeof RecordScalarFieldEnum)[keyof typeof RecordScalarFieldEnum]
+
+
+export const RecordAccessScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  recordId: 'recordId',
+  accessedAt: 'accessedAt'
+} as const
+
+export type RecordAccessScalarFieldEnum = (typeof RecordAccessScalarFieldEnum)[keyof typeof RecordAccessScalarFieldEnum]
 
 
 export const SortOrder = {

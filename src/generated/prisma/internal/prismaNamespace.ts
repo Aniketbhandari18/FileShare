@@ -385,7 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Record: 'Record'
+  Record: 'Record',
+  RecordAccess: 'RecordAccess'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "record"
+    modelProps: "user" | "record" | "recordAccess"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RecordAccess: {
+      payload: Prisma.$RecordAccessPayload<ExtArgs>
+      fields: Prisma.RecordAccessFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecordAccessFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecordAccessFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>
+        }
+        findFirst: {
+          args: Prisma.RecordAccessFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecordAccessFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>
+        }
+        findMany: {
+          args: Prisma.RecordAccessFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>[]
+        }
+        create: {
+          args: Prisma.RecordAccessCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>
+        }
+        createMany: {
+          args: Prisma.RecordAccessCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecordAccessCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>[]
+        }
+        delete: {
+          args: Prisma.RecordAccessDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>
+        }
+        update: {
+          args: Prisma.RecordAccessUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecordAccessDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecordAccessUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecordAccessUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecordAccessUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecordAccessPayload>
+        }
+        aggregate: {
+          args: Prisma.RecordAccessAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecordAccess>
+        }
+        groupBy: {
+          args: Prisma.RecordAccessGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecordAccessGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecordAccessCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecordAccessCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -625,6 +700,16 @@ export const RecordScalarFieldEnum = {
 } as const
 
 export type RecordScalarFieldEnum = (typeof RecordScalarFieldEnum)[keyof typeof RecordScalarFieldEnum]
+
+
+export const RecordAccessScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  recordId: 'recordId',
+  accessedAt: 'accessedAt'
+} as const
+
+export type RecordAccessScalarFieldEnum = (typeof RecordAccessScalarFieldEnum)[keyof typeof RecordAccessScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -844,6 +929,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   record?: Prisma.RecordOmit
+  recordAccess?: Prisma.RecordAccessOmit
 }
 
 /* Types for Logging */

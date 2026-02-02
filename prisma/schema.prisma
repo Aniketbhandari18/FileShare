@@ -23,7 +23,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  records Record[]
+  records Record[] // records created by sender
+  accesses RecordAccess[] // records accessed by receiver
 }
 
 model Record {
@@ -45,9 +46,22 @@ model Record {
   fileSize Int
   
   createdBy User @relation(fields: [createdById], references: [id])
+  accesses RecordAccess[] // receivers who accessed this record
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model RecordAccess{
+  id String @id @default(cuid())
+  userId String
+  recordId String
+  accessedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  record Record @relation(fields: [recordId], references: [id])
+
+  @@unique([recordId, userId])
 }
 
 enum Role {

@@ -24,6 +24,11 @@ const DashboardPage = async () => {
     });
   } else {
     records = await prisma.record.findMany({
+      where: {
+        accesses: {
+          some: { userId },
+        },
+      },
       include: {
         createdBy: {
           select: {

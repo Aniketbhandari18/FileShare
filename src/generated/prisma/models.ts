@@ -10,4 +10,5 @@
  */
 export type * from './models/User'
 export type * from './models/Record'
+export type * from './models/RecordAccess'
 export type * from './commonInputTypes'
