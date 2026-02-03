@@ -16,14 +16,15 @@ import {
 import { FileText } from "lucide-react";
 import { format, formatDistanceToNow } from "date-fns";
 import { Role } from "@/generated/prisma/enums";
-import { Record, User } from "@/generated/prisma/client";
+import { User } from "@/generated/prisma/client";
 import { getRecordStatus } from "@/lib/record";
 import { filesize } from "filesize";
 import ActionsDialogMenu from "./ActionsDialogMenu";
+import { SafeRecord } from "@/types";
 
 type Props = {
   role: Role;
-  records: (Record & { createdBy: Pick<User, "email"> })[];
+  records: (SafeRecord & { createdBy: Pick<User, "email"> })[];
 };
 
 const RecordList = ({ role, records }: Props) => {

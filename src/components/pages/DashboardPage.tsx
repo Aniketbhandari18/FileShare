@@ -1,26 +1,29 @@
 import RecordList from "../RecordList";
 import prisma from "@/lib/prisma";
-import { Record, User } from "@/generated/prisma/client";
+import { Prisma, User } from "@/generated/prisma/client";
 import { getUser } from "@/lib/getUser";
 import CreateRecordButton from "../CreateRecordButton";
+import { SafeRecord } from "@/types";
+import { safeRecordSelect } from "@/lib/prisma/select";
 
 const DashboardPage = async () => {
   const { userId, role } = await getUser();
 
-  let records: (Record & { createdBy: Pick<User, "email"> })[] = [];
+  let records: (SafeRecord & { createdBy: Pick<User, "email"> })[] = [];
+
+  const select = {
+    ...safeRecordSelect,
+    createdBy: {
+      select: { email: true },
+    },
+  } satisfies Prisma.RecordSelect;
 
   if (role === "SENDER") {
     records = await prisma.record.findMany({
       where: {
         createdById: userId,
       },
-      include: {
-        createdBy: {
-          select: {
-            email: true,
-          },
-        },
-      },
+      select: select,
     });
   } else {
     records = await prisma.record.findMany({
@@ -29,13 +32,7 @@ const DashboardPage = async () => {
           some: { userId },
         },
       },
-      include: {
-        createdBy: {
-          select: {
-            email: true,
-          },
-        },
-      },
+      select: select,
     });
   }
 

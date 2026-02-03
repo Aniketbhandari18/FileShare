@@ -17,15 +17,16 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Record, Role } from "@/generated/prisma/client";
+import { Role } from "@/generated/prisma/client";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { deleteRecord, revokeAccess } from "@/actions/recordActions";
 import { useState } from "react";
+import { SafeRecord } from "@/types";
 
 type Props = {
   role: Role;
-  record: Record;
+  record: SafeRecord;
 };
 
 type LoadingAction = "revoke" | "delete" | null;
@@ -35,7 +36,8 @@ const ActionsDialogMenu = ({ role, record }: Props) => {
   const [loadingAction, setLoadingAction] = useState<LoadingAction>(null);
   const isLoading = loadingAction !== null;
 
-  const fileUrl = record.fileUrl; // this is temp, till i implement my own file view page.
+  const fileUrl =
+    "https://m6vjc2rsr0.ufs.sh/f/nygZNf6IY9lptYn0Z5TBdV1zobNnFcPE2OsSUj3fMiXWlrCe"; // this is temp, till i implement my own file view page.
 
   const isExpired = record.expiresAt < new Date();
   const isRevoked = record.isRevoked;
