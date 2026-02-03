@@ -36,8 +36,7 @@ const ActionsDialogMenu = ({ role, record }: Props) => {
   const [loadingAction, setLoadingAction] = useState<LoadingAction>(null);
   const isLoading = loadingAction !== null;
 
-  const fileUrl =
-    "https://m6vjc2rsr0.ufs.sh/f/nygZNf6IY9lptYn0Z5TBdV1zobNnFcPE2OsSUj3fMiXWlrCe"; // this is temp, till i implement my own file view page.
+  const fileUrl = `/file/${record.fileKey}`;
 
   const isExpired = record.expiresAt < new Date();
   const isRevoked = record.isRevoked;
