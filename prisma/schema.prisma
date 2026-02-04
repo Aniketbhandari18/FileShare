@@ -45,7 +45,7 @@ model Record {
   fileType String // from uploadthing. eg: application/pdf
   fileSize Int
   
-  createdBy User @relation(fields: [createdById], references: [id])
+  createdBy User @relation(fields: [createdById], references: [id], onDelete: Cascade)
   accesses RecordAccess[] // receivers who accessed this record
 
   createdAt DateTime @default(now())
@@ -58,8 +58,8 @@ model RecordAccess{
   recordId String
   accessedAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
-  record Record @relation(fields: [recordId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  record Record @relation(fields: [recordId], references: [id], onDelete: Cascade)
 
   @@unique([recordId, userId])
 }
