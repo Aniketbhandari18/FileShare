@@ -2,7 +2,7 @@ import { JwtPayload } from "jsonwebtoken";
 import { Role } from "./generated/prisma/enums";
 import { Record } from "./generated/prisma/client";
 
-export interface MyJwtPayload extends JwtPayload {
+export interface AuthJwtPayload extends JwtPayload {
   userId: string;
   email: string;
   role: Role;
