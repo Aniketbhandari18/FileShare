@@ -164,7 +164,7 @@ const CreateRecordButton = () => {
               name="expiry"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Expiry</FormLabel>
                   <FormControl>
                     <Select defaultValue="10m" onValueChange={field.onChange}>
                       <SelectTrigger className="w-full">
