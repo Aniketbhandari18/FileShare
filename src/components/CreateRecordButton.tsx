@@ -56,6 +56,8 @@ const CreateRecordButton = () => {
     mode: "onChange",
   });
 
+  const formValues = form.watch();
+
   const { isValid, isDirty } = form.formState;
   const uploadButtonDisabled = !isValid || !isDirty;
 
@@ -219,7 +221,7 @@ const CreateRecordButton = () => {
         <div className="mt-4">
           <UploadButton
             endpoint="recordUploader"
-            input={{ values: form.getValues() }}
+            input={{ values: formValues }}
             disabled={uploadButtonDisabled}
             appearance={{
               button: `w-full flex items-center justify-center gap-2 ${uploadButtonDisabled ? "bg-black/75!" : "bg-black!"}`,
