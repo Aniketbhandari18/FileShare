@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ recordId: string }> },
+  { params }: { params: Promise<{ fileKey: string }> },
 ) {
-  const { recordId } = await params;
+  const { fileKey } = await params;
 
-  if (!recordId) {
-    throw new Error("Record id is required");
+  if (!fileKey) {
+    throw new Error("File key is required");
   }
 
   const { userId } = await getUser();
@@ -18,7 +18,7 @@ export async function GET(
   }
 
   const record = await prisma.record.findUnique({
-    where: { id: recordId },
+    where: { fileKey },
   });
 
   if (!record) {

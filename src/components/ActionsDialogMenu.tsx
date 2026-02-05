@@ -117,7 +117,7 @@ const ActionsDialogMenu = ({ role, record }: Props) => {
 
         {/* Download File */}
         <DropdownMenuItem disabled={isInactive || isLoading} asChild>
-          <Link href={`/api/record/${record.id}/download`}>
+          <Link href={`/api/record/${record.fileKey}/download`}>
             <Download className="h-4 w-4" />
             Download
           </Link>
