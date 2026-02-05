@@ -4,6 +4,8 @@ import { safeRecordSelect } from "@/lib/prisma/select";
 import { notFound } from "next/navigation";
 import FileAccessRevoked from "../FileAccessRevoked";
 import FileExpired from "../FileExpired";
+import FilePasswordUnlock from "../FilePasswordUnlock";
+import { isFileUnlocked } from "@/lib/isFileUnlocked";
 
 type Props = {
   fileKey: string;
@@ -12,6 +14,7 @@ type Props = {
 const FilePreviewPage = async ({ fileKey }: Props) => {
   const select = {
     ...safeRecordSelect,
+    password: true,
     createdBy: {
       select: { email: true },
     },
@@ -34,6 +37,18 @@ const FilePreviewPage = async ({ fileKey }: Props) => {
   // File Expired
   if (record.expiresAt < new Date()) {
     return <FileExpired expiredAt={record.expiresAt} />;
+  }
+
+  // File Unlocked
+  const isUnlocked = await isFileUnlocked(fileKey);
+  if (record.password && !isUnlocked) {
+    return (
+      <FilePasswordUnlock
+        fileKey={fileKey}
+        fileName={record.fileName}
+        fileSize={record.fileSize}
+      />
+    );
   }
 
   return <div>{fileKey}</div>;

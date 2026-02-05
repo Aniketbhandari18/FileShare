@@ -8,6 +8,10 @@ export interface AuthJwtPayload extends JwtPayload {
   role: Role;
 }
 
+export interface FileAccessJwtPayload extends JwtPayload {
+  files: string[];
+}
+
 // This excludes sensitive info
 export type SafeRecord = Omit<
   Record,
