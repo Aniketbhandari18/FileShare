@@ -16,6 +16,7 @@ import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { generateJwtToken } from "@/lib/generateJwtTokens";
 import { decodeJwtToken } from "@/lib/decodeJwtToken";
 import { FileAccessJwtPayload } from "@/types";
+import { UTApi } from "uploadthing/server";
 
 export async function addRecord(
   values: z.infer<typeof createRecordFormSchema>,
@@ -110,6 +111,12 @@ export async function deleteRecord(recordId: string) {
     await prisma.record.delete({
       where: { id: recordId },
     });
+
+    // delete file from uploadthing
+    const utapi = new UTApi();
+
+    const res = await utapi.deleteFiles(record.uploadThingFileKey);
+    console.log("UploadThing delete response:", res);
 
     revalidatePath("/dashboard");
 
