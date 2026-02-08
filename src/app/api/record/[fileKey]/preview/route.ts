@@ -10,10 +10,10 @@ export async function GET(
   const { fileKey } = await params;
 
   if (!fileKey) {
-    throw new Error("File key is required");
+    return new NextResponse("File key is required", { status: 400 });
   }
 
-  const { userId } = await auth();
+  const { userId, role } = await auth();
 
   if (!userId) {
     return new NextResponse("Unauthorized", { status: 401 });
@@ -47,6 +47,25 @@ export async function GET(
 
     if (!fileRes.ok) {
       return new NextResponse("Record unavailable", { status: 500 });
+    }
+
+    // add to recordAccess for first successful receiver access (view or download)
+    if (role === "RECEIVER") {
+      prisma.recordAccess
+        .upsert({
+          where: {
+            recordId_userId: {
+              recordId: record.id,
+              userId: userId,
+            },
+          },
+          create: {
+            recordId: record.id,
+            userId: userId,
+          },
+          update: {},
+        })
+        .catch((error) => console.log(error));
     }
 
     // Set headers

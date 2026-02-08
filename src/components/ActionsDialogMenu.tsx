@@ -43,7 +43,7 @@ const ActionsDialogMenu = ({ role, record }: Props) => {
   const isInactive = isExpired || isRevoked;
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(fileUrl);
+    navigator.clipboard.writeText(process.env.NEXT_PUBLIC_APP_URL! + fileUrl);
     toast.success("File link has been copied to clipboard");
   };
 

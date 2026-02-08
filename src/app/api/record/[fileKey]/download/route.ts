@@ -1,5 +1,6 @@
 import { getUser } from "@/lib/getUser";
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -9,12 +10,12 @@ export async function GET(
   const { fileKey } = await params;
 
   if (!fileKey) {
-    throw new Error("File key is required");
+    return new NextResponse("File key is required", { status: 400 });
   }
 
-  const { userId } = await getUser();
+  const { userId, role } = await getUser();
   if (!userId) {
-    throw new Error("Unauthorized");
+    return new NextResponse("Unauthorized", { status: 401 });
   }
 
   const record = await prisma.record.findUnique({
@@ -38,6 +39,25 @@ export async function GET(
     return new NextResponse("Record unavailable", { status: 500 });
   }
 
+  // add to recordAccess for first successful receiver access (view or download)
+  if (role === "RECEIVER") {
+    await prisma.recordAccess
+      .upsert({
+        where: {
+          recordId_userId: {
+            recordId: record.id,
+            userId: userId,
+          },
+        },
+        create: {
+          recordId: record.id,
+          userId: userId,
+        },
+        update: {},
+      })
+      .catch((error) => console.log(error));
+  }
+
   // Set headers
   const headers = new Headers();
 
@@ -49,6 +69,8 @@ export async function GET(
     "Content-Type",
     fileRes.headers.get("Content-Type") || "application/octet-stream",
   );
+
+  revalidatePath("/dashboard");
 
   return new NextResponse(fileRes.body, { headers });
 }
