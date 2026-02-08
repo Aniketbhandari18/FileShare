@@ -6,6 +6,7 @@ import FileAccessRevoked from "../FileAccessRevoked";
 import FileExpired from "../FileExpired";
 import FilePasswordUnlock from "../FilePasswordUnlock";
 import { isFileUnlocked } from "@/lib/isFileUnlocked";
+import FilePreview from "../FilePreview";
 
 type Props = {
   fileKey: string;
@@ -51,6 +52,8 @@ const FilePreviewPage = async ({ fileKey }: Props) => {
     );
   }
 
-  return <div>{fileKey}</div>;
+  const { password, ...safeRecord } = record;
+
+  return <FilePreview record={safeRecord} />;
 };
 export default FilePreviewPage;

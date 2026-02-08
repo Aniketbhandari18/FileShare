@@ -72,7 +72,7 @@ const RecordList = ({ role, records }: Props) => {
                       <TableHead>File Name</TableHead>
                       <TableHead>Description</TableHead>
                       <TableHead>Category</TableHead>
-                      {role === "RECEIVER" && <TableHead>Created By</TableHead>}
+                      {role === "RECEIVER" && <TableHead>Shared By</TableHead>}
                       <TableHead>Created</TableHead>
                       <TableHead>Size</TableHead>
                       <TableHead>Expiry</TableHead>

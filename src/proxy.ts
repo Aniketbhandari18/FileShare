@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { decodeJwtToken } from "./lib/decodeJwtToken";
 import { generateJwtToken } from "./lib/generateJwtTokens";
 
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = ["/dashboard", "/file"];
 const publicRoutes = ["/sign-up", "/sign-in"];
 
 export async function proxy(req: NextRequest) {
@@ -15,18 +15,18 @@ export async function proxy(req: NextRequest) {
   //decode tokens
   const decodedAccessToken = decodeJwtToken(
     accessToken,
-    process.env.ACCESS_TOKEN_SECRET!
+    process.env.ACCESS_TOKEN_SECRET!,
   );
   const decodedRefreshToken = decodeJwtToken(
     refreshToken,
-    process.env.REFRESH_TOKEN_SECRET!
+    process.env.REFRESH_TOKEN_SECRET!,
   );
 
   const isProtectedRoute = protectedRoutes.some((p) => path.startsWith(p));
   const isPublicRoute = publicRoutes.includes(path);
 
   const isAuthenticated = Boolean(
-    decodedAccessToken?.userId || decodedRefreshToken?.userId
+    decodedAccessToken?.userId || decodedRefreshToken?.userId,
   );
 
   if (isProtectedRoute && !isAuthenticated) {
@@ -47,7 +47,7 @@ export async function proxy(req: NextRequest) {
         role: decodedRefreshToken.role,
       },
       process.env.ACCESS_TOKEN_SECRET!,
-      process.env.ACCESS_TOKEN_EXPIRY!
+      process.env.ACCESS_TOKEN_EXPIRY!,
     );
 
     const newRefreshToken = generateJwtToken(
@@ -57,7 +57,7 @@ export async function proxy(req: NextRequest) {
         role: decodedRefreshToken.role,
       },
       process.env.REFRESH_TOKEN_SECRET!,
-      process.env.REFRESH_TOKEN_EXPIRY!
+      process.env.REFRESH_TOKEN_EXPIRY!,
     );
 
     // store tokens in cookies

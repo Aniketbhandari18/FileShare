@@ -8,7 +8,7 @@ type Props = {
 };
 
 const FileExpired = ({ expiredAt }: Props) => {
-  const fomattedExpiredAt = format(
+  const formattedExpiredAt = format(
     new Date(expiredAt),
     "MMM d, yyyy 'at' h:mm a",
   );
@@ -42,7 +42,7 @@ const FileExpired = ({ expiredAt }: Props) => {
 
             {expiredAt && (
               <p className="text-sm text-muted-foreground">
-                Expired on {fomattedExpiredAt}
+                Expired on {formattedExpiredAt}
               </p>
             )}
           </div>
