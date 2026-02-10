@@ -24,6 +24,9 @@ const DashboardPage = async () => {
         createdById: userId,
       },
       select: select,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   } else {
     records = await prisma.record.findMany({
@@ -33,6 +36,9 @@ const DashboardPage = async () => {
         },
       },
       select: select,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }
 
