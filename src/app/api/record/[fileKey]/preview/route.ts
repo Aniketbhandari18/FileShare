@@ -34,8 +34,9 @@ export async function GET(
   }
 
   const isUnlocked = await isFileUnlocked(fileKey);
+  const isCreator = record.createdById === userId;
 
-  if (record.password && !isUnlocked) {
+  if (!isCreator && record.password && !isUnlocked) {
     return new NextResponse(
       "File is locked. Please enter the password to unlock.",
       { status: 403 },

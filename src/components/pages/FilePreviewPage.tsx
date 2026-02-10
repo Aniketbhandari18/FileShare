@@ -7,12 +7,15 @@ import FileExpired from "../FileExpired";
 import FilePasswordUnlock from "../FilePasswordUnlock";
 import { isFileUnlocked } from "@/lib/isFileUnlocked";
 import FilePreview from "../FilePreview";
+import { getUser } from "@/lib/getUser";
 
 type Props = {
   fileKey: string;
 };
 
 const FilePreviewPage = async ({ fileKey }: Props) => {
+  const { userId } = await getUser();
+
   const select = {
     ...safeRecordSelect,
     password: true,
@@ -42,7 +45,9 @@ const FilePreviewPage = async ({ fileKey }: Props) => {
 
   // File Unlocked
   const isUnlocked = await isFileUnlocked(fileKey);
-  if (record.password && !isUnlocked) {
+  const isCreator = record.createdById === userId;
+
+  if (!isCreator && record.password && !isUnlocked) {
     return (
       <FilePasswordUnlock
         fileKey={fileKey}
