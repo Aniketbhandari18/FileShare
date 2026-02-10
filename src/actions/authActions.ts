@@ -129,6 +129,7 @@ export async function SignOut() {
 
   cookieStore.delete("accessToken");
   cookieStore.delete("refreshToken");
+  cookieStore.delete("file_access_token");
 
   redirect("/");
 }
